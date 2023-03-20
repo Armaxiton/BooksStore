@@ -3,9 +3,9 @@
 <html>
 <head>
 	<title>{{title}}</title>
-	<link type="text/css" href="{% static 'news/css/styles.css' %}" rel="stylesheet" />
+	<link type="text/css" href="{% static 'book/css/background.css' %}" rel="stylesheet" />
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<link rel="shortcut icon" href="{% static 'news/images/logo.png' %}" type="image/x-icon"/>
+	<link rel="shortcut icon" href="{% static 'book/images/logo.png' %}" type="image/x-icon"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
@@ -41,17 +41,17 @@
 	{% endif %}
 
 
-	<!-- {% for i in cats %}
+	{% for i in cats %}
 	{% if i.pk == cat_selected %}
 		<li class="selected">{{i.name}}</li>
 	{% else %}
-	<li><a href="{{ i.get_absolute_url }}">{{i.name}}</a></li>
+		<li><a href="{% url 'category' i.pk %}">{{i.name}}</a></li>
 	{% endif %}
-	{% endfor %} -->
+	{% endfor %}
 
 			<li class="share">
 		<p>Наш канал</p>
-		<a class="share-yt" href="https://www.youtube.com/" target="_blank" rel="nofollow"></a>
+		<a class="share-yt" href="#" target="_blank" rel="nofollow"></a>
 		</li>
 	</ul>
 </td>

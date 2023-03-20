@@ -1,16 +1,28 @@
 {% extends 'book/base.html' %}
 
 {% block content %}
-<h1>{{title}}</h1>
+<h1>{{ title }}</h1>
 
 <ul class="list-articles">
-    {% for n in news %}
+    {% for ns in books %}
         <li>
-            <h2>{{ n.title }}</h2>
-            <p>{{n.content|truncatewords:15}}</p>
+            <div class="article-panel">
+                <p class="first">Жанр: {{ ns.genre }}</p>
+                <p class="last">Дата: {{ ns.created_date }}</p>
+            </div>
+
+            {% if ns.cover %}
+                <p><img  class="img-article-left thumb" src="{{ ns.cover.url }}" alt=""></p>
+            {% endif %}
+            <h3>{{ns.title}}</h3>
+
+            <p>{{ns.author}}</p>
+
             <div class="clear"></div>
-            <p class="link-read-post"><a href="{{ n.get_absolute_url }}">Читать</a></p> 
+            <p class="link-read-post"><a href="#">Читать</a></p>
+
         </li>
+
     {% endfor %}
 </ul>
 
