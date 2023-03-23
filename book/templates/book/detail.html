@@ -1,0 +1,14 @@
+{% extends 'book/base.html' %}
+
+{% block content %}
+
+<h1>{{ title }}</h1>
+
+{% if post.cover %}
+    <p><img class="img-article-left" src="{{ post.cover.url }}"></p>
+{% endif %}
+
+<p>{{ post.author }}</p>
+<p><b>{{ post.created_date }}</b></p>
+
+{% endblock content %}

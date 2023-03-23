@@ -19,7 +19,21 @@ class BookList(ListView):
     template_name = 'book/index.html'
     context_object_name = 'books'
 
-    # def get_context_data(self, *, object_list=None,  **kwargs) :
+    def get_context_data(self, *, object_list=None,  **kwargs) :
+        context = super().get_context_data(**kwargs)
+        cats = Genre.objects.all()
+        context['menu'] = menu
+        context['title'] = 'Главная страница'
+        context['cats'] = cats
+        return context
+
+
+class ShowBook(DetailView):
+    model = Book
+    template_name = 'book/detail.html'
+    context_object_name = 'post'
+
+
 
 
 
