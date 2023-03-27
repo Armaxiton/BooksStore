@@ -1,8 +1,9 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
-
+from django.urls import reverse_lazy
 from .models import *
+from .forms import AddBookForm
 
 
 
@@ -32,6 +33,60 @@ class ShowBook(DetailView):
     model = Book
     template_name = 'book/detail.html'
     context_object_name = 'post'
+    slug_url_kwarg = 'book_slug'
+
+
+    def get_context_data(self, *, object_list=None,  **kwargs) :
+        context = super().get_context_data(**kwargs)
+        cats = Genre.objects.all()
+        context['menu'] = menu
+        context['title'] = context['post']
+        context['cats'] = cats
+        return context
+
+class AddBook(CreateView):
+    form_class = AddBookForm
+    template_name = 'book/addbook.html'
+    success_url = reverse_lazy('home')
+
+    def get_context_data(self, *, object_list=None,  **kwargs) :
+        context = super().get_context_data(**kwargs)
+        cats = Genre.objects.all()
+        context['menu'] = menu
+        context['title'] = 'Добавление книги'
+        context['cats'] = cats
+        return context
+
+
+class BookEdit(UpdateView):
+    model = Book
+    form_class = AddBookForm
+    template_name = 'book/edit.html'
+    slug_url_kwarg = 'book_slug'
+    success_url = reverse_lazy('home')
+
+    def get_context_data(self, *, object_list=None,  **kwargs) :
+        context = super().get_context_data(**kwargs)
+        cats = Genre.objects.all()
+        context['menu'] = menu
+        context['title'] = 'Редактирование книги'
+        context['cats'] = cats
+        return context
+
+
+class BookRemove(DeleteView):
+    model = Book 
+    template_name = 'book/delete.html'
+    success_url = reverse_lazy('home')
+    slug_url_kwarg = 'book_slug'
+
+    def get_context_data(self, *, object_list=None,  **kwargs) :
+        context = super().get_context_data(**kwargs)
+        cats = Genre.objects.all()
+        context['menu'] = menu
+        context['title'] = 'Удаление книги'
+        context['cats'] = cats
+        return context
 
 
 

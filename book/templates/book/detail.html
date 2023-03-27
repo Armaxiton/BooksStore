@@ -9,6 +9,9 @@
 {% endif %}
 
 <p>{{ post.author }}</p>
-<p><b>{{ post.created_date }}</b></p>
+<p><b>{{ post.year }}</b></p>
+<p class="link-read-post"><a href="{% url 'edit' post.slug %}">Редактировать</a></p>
+<p class="link-read-post"><a href="{% url 'delete' post.slug %}">Удалить</a></p>
+
 
 {% endblock content %}
