@@ -27,6 +27,9 @@ class BookList(ListView):
         context['title'] = 'Главная страница'
         context['cats'] = cats
         return context
+    
+    def get_queryset(self):
+        return Book.objects.all().order_by('-created_date')
 
 
 class ShowBook(DetailView):
@@ -89,6 +92,22 @@ class BookRemove(DeleteView):
         return context
 
 
+class BookCategory(ListView):
+    model = Book 
+    template_name = 'book/index.html'
+    context_object_name = 'books'
+
+    def get_queryset(self):
+        return Book.objects.filter(genre__pk=self.kwargs['gen_id'])
+    
+    def get_context_data(self, *, object_list=None,  **kwargs) :
+        context = super().get_context_data(**kwargs)
+        cats = Genre.objects.all()
+        context['menu'] = menu
+        context['title'] = 'Категория: ' + str(context['books'][0].genre)
+        context['cats'] = cats
+        return context
+
 
 
 
@@ -109,7 +128,7 @@ def index(request):
 def add_page(request):
     return HttpResponse('Test')
     # if request.method == 'POST':
-    #     form = AddNewsForm(request.POST)
+    #     form = AddNewsForm(request.POST, request.FILES)
     #     if form.is_valid():
     #         form.save()
     #         return redirect('home')
